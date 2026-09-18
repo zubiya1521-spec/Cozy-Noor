@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Admin.css";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "http://192.168.244.208:5000/api";
 
 function Admin() {
   const [activeSection, setActiveSection] = useState("dashboard");

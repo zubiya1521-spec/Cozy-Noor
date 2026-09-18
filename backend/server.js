@@ -61,8 +61,8 @@ app.get("/", (req, res) => {
   res.send("Cozy Noor Backend is Running! 🧶");
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(
-    `Cozy Noor Backend running on http://localhost:${PORT}`
+    `Cozy Noor Backend running on http://192.168.244.208:${PORT}`
   );
 });

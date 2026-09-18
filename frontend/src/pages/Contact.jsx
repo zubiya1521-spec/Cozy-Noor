@@ -21,11 +21,11 @@ function Contact() {
     when your contact details change.
   */
   const contactSettings = {
-    whatsappNumber: "919999999999",
-    whatsappDisplay: "+91 99999 99999",
+    whatsappNumber: "91 7709567501",
+    whatsappDisplay: "+91 7709567501",
     instagramUsername: "@the.cozy.noor",
     instagramUrl: "https://instagram.com/the.cozy.noor",
-    email: "hello@cozynoor.com",
+    email: "cozynoor1521@gmail.com",
     location: "Pune, Maharashtra",
     businessHours: "Monday – Saturday | 10:00 AM – 7:00 PM",
   };

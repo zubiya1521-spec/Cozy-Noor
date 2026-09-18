@@ -3,44 +3,14 @@ import { Link } from "react-router-dom";
 import { getProducts } from "../services/api";
 
 function Home() {
-  const categories = [
-    {
-      number: "01",
-      title: "Flowers & Bouquets",
-      text: "Handcrafted blooms that stay beautiful.",
-      image: "🌷",
-      className: "cat-rose",
-    },
-    {
-      number: "02",
-      title: "Bags & Pouches",
-      text: "Pretty crochet pieces for everyday.",
-      image: "👜",
-      className: "cat-lavender",
-    },
-    {
-      number: "03",
-      title: "Hair Accessories",
-      text: "Bows, gajras, scrunchies & more.",
-      image: "🎀",
-      className: "cat-sage",
-    },
-    {
-      number: "04",
-      title: "Keychains & Charms",
-      text: "Tiny handmade pieces with personality.",
-      image: "🧸",
-      className: "cat-peach",
-    },
-  ];
-
   const [products, setProducts] = useState([]);
+  const [databaseCategories, setDatabaseCategories] = useState([]);
 
+  // PRODUCTS
   useEffect(() => {
     getProducts()
       .then((data) => {
         console.log("Home products from MongoDB:", data);
-
         setProducts(data || []);
       })
       .catch((error) => {
@@ -48,6 +18,59 @@ function Home() {
         setProducts([]);
       });
   }, []);
+
+  // CATEGORIES DIRECTLY FROM BACKEND
+  useEffect(() => {
+    fetch("http://localhost:5000/api/categories")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch categories");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Home categories from MongoDB:", data);
+
+        const categoryList = Array.isArray(data)
+          ? data
+          : Array.isArray(data?.data)
+          ? data.data
+          : [];
+
+        setDatabaseCategories(categoryList);
+      })
+      .catch((error) => {
+        console.error("Home categories error:", error);
+        setDatabaseCategories([]);
+      });
+  }, []);
+
+  // MAIN CATEGORIES FROM DATABASE
+  const mainCategories = databaseCategories
+    .filter(
+      (category) =>
+        category.active !== false &&
+        (!category.type || category.type === "main")
+    )
+    .slice(0, 4);
+
+  const categoryClasses = [
+    "cat-rose",
+    "cat-lavender",
+    "cat-sage",
+    "cat-peach",
+  ];
+
+  const categoryFallbackTexts = {
+    "Flowers & Bouquets":
+      "Handcrafted blooms that stay beautiful.",
+    "Bags & Pouches":
+      "Pretty crochet pieces for everyday.",
+    "Hair Accessories":
+      "Bows, gajras, scrunchies & more.",
+    "Keychains & Charms":
+      "Tiny handmade pieces with personality.",
+  };
 
   const occasions = [
     {
@@ -254,44 +277,115 @@ function Home() {
 
         <div className="beautiful-category-grid">
 
-          {categories.map((category) => (
+          {mainCategories.length > 0 ? (
 
-            <Link
-              key={category.number}
-              to={`/category/${category.title
+            mainCategories.map((category, index) => {
+
+              const categoryTitle = category.name || "Category";
+
+              const categoryText =
+                category.description ||
+                categoryFallbackTexts[categoryTitle] ||
+                "Beautiful handmade crochet creations.";
+
+              const categoryImage =
+                category.image || category.emoji || "✿";
+
+              const categorySlug = categoryTitle
                 .toLowerCase()
                 .replaceAll(" & ", "-and-")
-                .replaceAll(" ", "-")}`}
-              className={`beautiful-category-card ${category.className}`}
+                .replaceAll(" ", "-");
+
+              return (
+
+                <Link
+                  key={category._id || categoryTitle}
+                  to={`/category/${categorySlug}`}
+                  className={`beautiful-category-card ${
+                    categoryClasses[index]
+                  }`}
+                >
+
+                  <div className="category-number">
+                    {String(index + 1).padStart(2, "0")}
+                  </div>
+
+                  <div className="category-visual">
+
+                    {category.image ? (
+
+                      <img
+                        src={category.image}
+                        alt={categoryTitle}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          display: "block",
+                          borderRadius: "inherit",
+                        }}
+                      />
+
+                    ) : (
+
+                      <span>
+                        {categoryImage}
+                      </span>
+
+                    )}
+
+                  </div>
+
+                  <div className="category-content">
+
+                    <h3>
+                      {categoryTitle}
+                    </h3>
+
+                    <p>
+                      {categoryText}
+                    </p>
+
+                    <span className="category-view">
+                      Explore collection →
+                    </span>
+
+                  </div>
+
+                  <div className="category-decoration">
+                    ✿
+                  </div>
+
+                </Link>
+
+              );
+            })
+
+          ) : (
+
+            <div
+              style={{
+                gridColumn: "1 / -1",
+                textAlign: "center",
+                padding: "40px 20px",
+              }}
             >
+              <span style={{ fontSize: "35px" }}>
+                🧶
+              </span>
 
-              <div className="category-number">
-                {category.number}
-              </div>
+              <h3>
+                Categories coming soon
+              </h3>
 
-              <div className="category-visual">
-                <span>{category.image}</span>
-              </div>
+              <p>
+                Categories added from the Admin Panel
+                will appear here.
+              </p>
 
-              <div className="category-content">
+            </div>
 
-                <h3>{category.title}</h3>
-
-                <p>{category.text}</p>
-
-                <span className="category-view">
-                  Explore collection →
-                </span>
-
-              </div>
-
-              <div className="category-decoration">
-                ✿
-              </div>
-
-            </Link>
-
-          ))}
+          )}
 
         </div>
 
@@ -324,7 +418,6 @@ function Home() {
           </p>
 
         </div>
-
 
         <div className="premium-product-grid">
 
@@ -424,6 +517,7 @@ function Home() {
                 padding: "50px 20px",
               }}
             >
+
               <span style={{ fontSize: "35px" }}>
                 🧶
               </span>
@@ -442,7 +536,6 @@ function Home() {
           )}
 
         </div>
-
 
         <div className="featured-bottom">
 
@@ -546,9 +639,13 @@ function Home() {
                 {occasion.icon}
               </div>
 
-              <h3>{occasion.title}</h3>
+              <h3>
+                {occasion.title}
+              </h3>
 
-              <p>{occasion.text}</p>
+              <p>
+                {occasion.text}
+              </p>
 
               <span className="occasion-arrow">
                 →

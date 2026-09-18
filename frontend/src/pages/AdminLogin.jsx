@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "http://192.168.244.208:5000/api";
 
 function AdminLogin() {
   const navigate = useNavigate();
