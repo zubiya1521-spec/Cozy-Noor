@@ -1,4 +1,4 @@
-const API_URL = "http://cozy-noor-backend.onrender.com/api";
+const API_URL = "http://cozy-noor-1.onrender.com/api";
 
 export const getProducts = async () => {
   const response = await fetch(`${API_URL}/products`);
