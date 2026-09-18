@@ -1,4 +1,4 @@
-const API_URL = "http://cozy-noor-1.onrender.com/api";
+const API_URL = "https://cozy-noor-1.onrender.com/api";
 
 export const getProducts = async () => {
   const response = await fetch(`${API_URL}/products`);
@@ -7,8 +7,13 @@ export const getProducts = async () => {
     throw new Error("Failed to fetch products");
   }
 
-  return response.json();
+  const data = await response.json();
+
+  console.log("PRODUCT API DATA:", data);
+
+  return data;
 };
+
 export const getProductById = async (id) => {
   const response = await fetch(`${API_URL}/products/${id}`);
 
@@ -16,5 +21,9 @@ export const getProductById = async (id) => {
     throw new Error("Failed to fetch product");
   }
 
-  return response.json();
+  const data = await response.json();
+
+  console.log("PRODUCT BY ID:", data);
+
+  return data;
 };
