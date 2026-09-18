@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { getProducts } from "../services/api";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "http://cozy-noor-backend.onrender.com/api";
 
 function Shop() {
   const [searchParams] = useSearchParams();
