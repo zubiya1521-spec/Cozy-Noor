@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "http://192.168.244.208:5000/api";
+const API_URL = "https://cozy-noor-1.onrender.com/api";
 
 function AdminLogin() {
   const navigate = useNavigate();

@@ -21,7 +21,7 @@ function Home() {
 
   // CATEGORIES DIRECTLY FROM BACKEND
   useEffect(() => {
-    fetch("http://cozy-noor-backend.onrender.com/api/categories")
+    fetch("https://cozy-noor-1.onrender.com/api/categories")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch categories");

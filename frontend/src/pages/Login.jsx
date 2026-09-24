@@ -25,7 +25,7 @@ function Login() {
 
     try {
       const response = await fetch(
-        "http://cozy-noor-backend.onrender.com/api/users/login",
+        "https://cozy-noor-1.onrender.com/api/users/login",
         {
           method: "POST",
           headers: {

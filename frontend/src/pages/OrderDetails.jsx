@@ -31,7 +31,7 @@ const token = user?.token;
   };
 
   useEffect(() => {
-   fetch(`http://cozy-noor-backend.onrender.com/api/orders/${id}`, {
+   fetch(`https://cozy-noor-1.onrender.com/api/orders/${id}`, {
   headers: {
     Authorization: `Bearer ${token}`,
   },
@@ -67,7 +67,7 @@ const token = user?.token;
 
     try {
       const response = await fetch(
-        `http://cozy-noor-backend.onrender.com/api/orders/${id}/cancel`,
+        `https://cozy-noor-1.onrender.com/api/orders/${id}/cancel`,
         {
           method: "PUT",
           headers: {

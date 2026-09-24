@@ -42,7 +42,7 @@ function Contact() {
 
   try {
     const response = await fetch(
-      "http://cozy-noor-backend.onrender.com/api/messages",
+      "https://cozy-noor-1.onrender.com/api/messages",
       {
         method: "POST",
         headers: {

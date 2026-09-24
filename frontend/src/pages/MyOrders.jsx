@@ -21,7 +21,7 @@ function MyOrders() {
 
       try {
         const response = await fetch(
-          `http://cozy-noor-backend.onrender.com/api/orders/user/${user.id}`,
+          `https://cozy-noor-1.onrender.com/api/orders/user/${user.id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -66,7 +66,7 @@ function MyOrders() {
 
     try {
       const response = await fetch(
-        `http://cozy-noor-backend.onrender.com/api/orders/${orderId}/cancel`,
+        `https://cozy-noor-1.onrender.com/api/orders/${orderId}/cancel`,
         {
           method: "PUT",
           headers: {

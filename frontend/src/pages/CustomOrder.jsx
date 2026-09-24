@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const API_URL = "http://cozy-noor-backend.onrender.com/api";
+const API_URL = "https://cozy-noor-1.onrender.com/api";
 
 function CustomOrder() {
   const [submitted, setSubmitted] = useState(false);

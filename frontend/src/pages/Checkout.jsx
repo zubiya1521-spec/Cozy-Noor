@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const API_URL = "http://cozy-noor-backend.onrender.com/api";
+const API_URL = "https://cozy-noor-1.onrender.com/api";
 
 function getUserData() {
   const stored = localStorage.getItem("cozyNoorUser");

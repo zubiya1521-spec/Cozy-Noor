@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getProductById } from "../services/api";
 
-const API_URL = "http://cozy-noor-backend.onrender.com/api";
+const API_URL = "https://cozy-noor-1.onrender.com/api";
 
 function ProductDetails() {
   const { id } = useParams();
